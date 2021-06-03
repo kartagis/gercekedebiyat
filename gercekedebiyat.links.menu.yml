@@ -1,0 +1,6 @@
+gercekedebiyat.csv_upload_content:
+  title: 'Gerçek Edebiyat CSV Upload'
+  description: 'Upload CSV for Gerçek Edebiyat.'
+  route_name: gercekedebiyat.csv_upload_content
+  parent: system.admin_config_system
+  weight: 1

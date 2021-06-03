@@ -1,0 +1,15 @@
+gercekedebiyat.csv_upload_content_tab:
+  title: "İçerikleri Yükleme"
+  route_name: gercekedebiyat.csv_upload_content
+  base_route: gercekedebiyat.admin_config_system_gercekedebiyat.csv_upload_content
+  weight: -2
+gercekedebiyat.csv_upload_categories_tab:
+  title: "Kategorileri Yükleme"
+  route_name: gercekedebiyat.csv_upload_categories
+  base_route: gercekedebiyat.admin_config_system_gercekedebiyat.csv_upload_content
+  weight: -2
+gercekedebiyat.csv_upload_authors_tab:
+  title: "Yazarları Yükleme"
+  route_name: gercekedebiyat.csv_upload_authors
+  base_route: gercekedebiyat.admin_config_system_gercekedebiyat.csv_upload_content
+  weight: -2

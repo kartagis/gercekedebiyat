@@ -1,0 +1,18 @@
+gercekedebiyat.csv_upload_content:
+  path: '/admin/config/system/gercekedebiyat'
+  defaults:
+    _form: '\Drupal\gercekedebiyat\Form\ContentFromCsv'
+  requirements:
+    _permission: 'administer site configuration'
+gercekedebiyat.csv_upload_categories:
+  path: '/admin/config/system/gercekedebiyat/categories'
+  defaults:
+    _form: '\Drupal\gercekedebiyat\Form\CategoriesFromCsv'
+  requirements:
+    _permission: 'administer site configuration'
+gercekedebiyat.csv_upload_authors:
+  path: '/admin/config/system/gercekedebiyat/authors'
+  defaults:
+    _form: '\Drupal\gercekedebiyat\Form\AuthorsFromCsv'
+  requirements:
+    _permission: 'administer site configuration'

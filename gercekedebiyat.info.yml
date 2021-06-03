@@ -1,0 +1,5 @@
+name: Gerçek Edebiyat
+description: Custom module for CSV parsing
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9

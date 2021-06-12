@@ -63,43 +63,45 @@ class ContentFromCsv extends FormBase {
       'error_message' => 'An error occurred during processing',
       'finished' => 'Drupal\gercekedebiyat\Form\ContentFromCsv::batchFinished',
     ];
+
     while (!feof($csv)) {
       $content = fgetcsv($csv);
-      //$date = \DateTime::createFromFormat('Y-m-d H:i:s', $content[8]);
-      //$ts = $date->getTimestamp();
-      $file = File::create([
-        'uid' => 1,
-        'uri' => $content[5],
-      ]);
-      $file->save();
-      $node = Node::create([
-        'type' => 'yazi',
-        'uid' => 1,
-        'field_eski_id' => $content[0],
-        'field_yazi_kategorisi' => [20],
-        'title' => $content[4] ? strip_tags($content[4]) : 'Title missing',
-        'field_spot' => $content[6] ?? 'Spot missing',
-        'body' => [
-          'summary' => '',
-          'value' => $content[7] ?? 'Body missing',
-          'format' => 'full_html'
-        ],
-        'field_one_cikan_gorsel' => [
-          [
-            "target_id" => $file->id(),
-            "alt" => $content[4],
-            "title" => $content[4],
-          ],
-        ],
-        'status' => 1,
-        'created' => [strtotime($content[8])],
-      ]);
-      //$node->setCreatedTime(strtotime($content[6]));
-      ;
-      $node->save();
-      batch_set($batch);
+      $batch['operations'][] = ['\Drupal\gercekedebiyat\Form\ContentFromCsv::createContent', $content];
     }
+    batch_set($batch);
   }
+
+  public static function createContent($content) {
+    $file = File::create([
+      'uid' => 1,
+      'uri' => 'public://'.$content[5],
+    ]);
+    $file->save();
+    $node = Node::create([
+      'type' => 'yazi',
+      'uid' => 1,
+      'field_eski_id' => $content[0],
+      'field_yazi_kategorisi' => [20],
+      'title' => $content[4] ? strip_tags($content[4]) : 'Title missing',
+      'field_spot' => $content[6] || $content[6] = 'NULL' ?? 'Spot missing',
+      'body' => [
+        'summary' => '',
+        'value' => $content[7] ?? 'Body missing',
+        'format' => 'full_html'
+      ],
+      'field_one_cikan_gorsel' => [
+        [
+
+          'target_id' => $file->id(),
+          'alt' => $content[4],
+          'title' => $content[4],
+        ],
+      ],
+      'status' => 1,
+      'created' => [strtotime($content[8])],
+    ]);
+    $node->save();
+}
 
   public static function batchFinished($success, $results, $operations) {
     if ($success) {
